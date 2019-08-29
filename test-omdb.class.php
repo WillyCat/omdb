@@ -17,7 +17,7 @@ info ('Done');
 info ('Querying by id...');
 $imdb_id = 'tt1285016';
 try{
-	$res = $o -> queryById ($imdb_id);
+	$res = $o -> queryById ($imdb_id, 'full');
 	print_r ($res);
 } catch (Exception $e) {
 	info ('Exception raised: ' . $e -> getMessage());

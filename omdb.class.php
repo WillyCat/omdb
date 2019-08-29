@@ -1,5 +1,12 @@
 <?php
 
+/*
+Date       Ver.  Change
+--------   ----  --------------------------------------------------------
+            1.0  Initial version
+2019-08-29  1.1  queryById: added optional parameter: plot
+*/
+
 require 'tinyHttp.class.php';
 
 class omdb_request
@@ -65,8 +72,19 @@ class omdb
 	}
 
 	public function
-	queryById (string $imdb_id): array
+	queryById (string $imdb_id, string $plot = 'mini'): array
 	{
+		switch ($plot)
+		{
+		case 'full' :
+			$this -> rq -> setParm ('plot', 'full');
+			break;
+		case 'mini' :
+			break;
+		default :
+			throw new Exception ('queryById: invalid value for parameter plot');
+		}
+
 		$this -> rq -> setParm ('i', $imdb_id);
 		$result = $this -> rq -> fetch();
 		return $result;
@@ -81,7 +99,7 @@ class omdb
 	public static function
 	getVersion(): string
 	{
-		return '1.0';
+		return '1.1';
 	}
 	
 }
